@@ -9,9 +9,10 @@ const socket = io('http://localhost:8080', { transports : ['websocket'] });
 const Room = () => {
     useEffect(() => {
         const game = Game();
+
         socket.on('bootstrap', state => {
-            console.log('bootstrap');
             game.setState(state);
+
             const screen = document.querySelector("#screen");
 
             screen.setAttribute('width', game.state.screen.width);
@@ -28,6 +29,7 @@ const Room = () => {
         const renderScreen = (screen, requestAnimationFrame) => {
             const context = screen.getContext('2d');
             context.clearRect(0, 0, screen.width, screen.height);
+            
             game.state.players.forEach(player => {
                 context.fillStyle = 'black';
                 context.globalAlpha = 1;
